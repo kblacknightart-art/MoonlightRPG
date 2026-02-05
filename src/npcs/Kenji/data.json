@@ -1,0 +1,29 @@
+{
+    "name": "Kenji",
+    "emoji": "\ud83c\udf5c",
+    "location": "Ginza",
+    "sublocation": "Restaurant",
+    "job": "Chef",
+    "schedule": {
+        "start": 10,
+        "end": 22
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Kenji, the Chef.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "Aiko",
+    "emoji": "\ud83c\udfa8",
+    "location": "Ginza",
+    "sublocation": "Gallery",
+    "job": "Artist",
+    "schedule": {
+        "start": 9,
+        "end": 17
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Aiko, the Artist.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

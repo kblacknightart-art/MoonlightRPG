@@ -1,0 +1,29 @@
+{
+    "name": "Asuka",
+    "emoji": "\ud83c\udfce\ufe0f",
+    "location": "Akihabara",
+    "sublocation": "Circuit",
+    "job": "Racer",
+    "schedule": {
+        "start": 20,
+        "end": 2
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Asuka, the Racer.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

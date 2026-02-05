@@ -1,0 +1,29 @@
+{
+    "name": "Elysia",
+    "emoji": "\ud83c\udfa4",
+    "location": "Shibuya",
+    "sublocation": "Studio",
+    "job": "Idol",
+    "schedule": {
+        "start": 13,
+        "end": 20
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Elysia, the Idol.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

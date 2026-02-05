@@ -1,0 +1,29 @@
+{
+    "name": "Rina",
+    "emoji": "\ud83d\udc89",
+    "location": "Shinjuku",
+    "sublocation": "Hospital",
+    "job": "Nurse",
+    "schedule": {
+        "start": 8,
+        "end": 20
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Rina, the Nurse.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

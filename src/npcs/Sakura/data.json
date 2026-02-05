@@ -1,0 +1,29 @@
+{
+    "name": "Sakura",
+    "emoji": "\ud83c\udf38",
+    "location": "Watatsumi",
+    "sublocation": "Shrine",
+    "job": "Shrine Maiden",
+    "schedule": {
+        "start": 6,
+        "end": 18
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Sakura, the Shrine Maiden.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

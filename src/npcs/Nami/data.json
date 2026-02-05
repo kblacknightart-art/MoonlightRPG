@@ -1,0 +1,29 @@
+{
+    "name": "Nami",
+    "emoji": "\ud83c\udf0a",
+    "location": "Watatsumi",
+    "sublocation": "Port",
+    "job": "Fisher",
+    "schedule": {
+        "start": 5,
+        "end": 12
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Nami, the Fisher.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

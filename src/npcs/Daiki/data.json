@@ -1,0 +1,29 @@
+{
+    "name": "Daiki",
+    "emoji": "\ud83e\udd4a",
+    "location": "Shibuya",
+    "sublocation": "Arena",
+    "job": "Fighter",
+    "schedule": {
+        "start": 18,
+        "end": 23
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Daiki, the Fighter.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

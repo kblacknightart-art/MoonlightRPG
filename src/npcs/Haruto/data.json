@@ -1,0 +1,29 @@
+{
+    "name": "Haruto",
+    "emoji": "\ud83c\udfcb\ufe0f",
+    "location": "Shinjuku",
+    "sublocation": "Gym",
+    "job": "Trainer",
+    "schedule": {
+        "start": 6,
+        "end": 14
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Haruto, the Trainer.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}
