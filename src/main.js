@@ -1,6 +1,6 @@
 import { player, dungeon, combat, STATS, RANKS } from './core/State.js';
 import { log, createFloatText, shakeScreen, varColor } from './core/Utils.js';
-import { NPC_DB } from './data/npcs.js';
+import { NPC_DB } from './data/npc.js';
 import { SKILLS_DB } from './data/skills.js';
 
 // DATOS DE ORIGEN PARA CREACIÓN
