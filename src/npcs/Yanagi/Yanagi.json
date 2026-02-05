@@ -2,37 +2,147 @@
     "info": {
         "id": "Yanagi",
         "name": "Tsukishiro Yanagi",
-        "job": "Agente de Operaciones Especiales",
+        "job": "Vicecapitana Sección 6",
         "emoji": "👓"
     },
     "dialogues": {
+        
         "root": {
-            "text": "Estás por la plaza de Shinjuku. En una panadería ves a una mujer de cabello rosa observando el mostrador con precisión militar. Parece estar calculando las calorías de un pan de melón.",
+            "text": "(ERROR DE SISTEMA: Se debe acceder a través de getStartScene en JS)",
+            "options": [{"txt": "Reiniciar", "next": "EXIT"}]
+        },
+
+        "// --- RUTINA DE MAÑANA (PRISA/CAFÉ) ---": "",
+        "routine_morning_rush": {
+            "text": "Ves a Yanagi caminando rápido hacia la estación, revisando un informe holográfico mientras sostiene un café negro. Su paso es perfecto, cronometrado al milímetro. Si la interrumpes, arruinarás su horario.",
             "options": [
-                { "txt": "Acercarse y buscar un dulce también (Ignorarla)", "next": "ignore" },
-                { "txt": "Saludarla cortésmente", "next": "greet" },
-                { "txt": "Apoyarse: 'Hey preciosa, ¿hora de colación?'", "next": "flirt_fail" }
+                { "txt": "Caminar a su lado en silencio e igualar su paso.", "req": {"stat":"AGI", "val":8}, "next": "morning_pace_success" },
+                { "txt": "¡Buenos días, Yanagi!", "next": "morning_interrupt" },
+                { "txt": "Observarla desde lejos.", "next": "EXIT" }
             ]
         },
-        "ignore": {
-            "text": "(Narrador): La mujer termina sus compras con eficiencia, paga exacto y se marcha. Para ella, eres un NPC más.",
-            "options": [{ "txt": "(Terminar)", "next": "EXIT" }]
-        },
-        "greet": {
-            "text": "Oh, disculpa. ¿Te conozco? — Dice mirándote fijamente, analizando tu postura y nivel de amenaza.",
+        "morning_pace_success": {
+            "text": "Logras mantener su ritmo vertiginoso sin estorbar. Ella te mira de reojo, sin detenerse.\n\nYanagi: 'Eficiente. Llegas a tiempo. No esperaba ver a un civil con tal disciplina de marcha.'",
             "options": [
-                { "txt": "Soy un nuevo Cazador en la zona.", "next": "greet_hunter", "effect": { "aff": 5 } },
-                { "txt": "No, solo quería ser amable.", "next": "greet_civilian", "effect": { "aff": 2 } }
+                { "txt": "El tiempo es oro, Vicecapitana.", "next": "morning_nod", "effect": {"aff": 2} },
+                { "txt": "Solo quería ver tu hermosa cara.", "next": "morning_glare", "effect": {"aff": -5} }
             ]
         },
-        "greet_hunter": {
-            "text": "Un Cazador... Ya veo. Soy Yanagi, de la Sección 6. Procura no causar problemas en mi distrito.",
-            "options": [{ "txt": "Entendido. (Terminar)", "next": "EXIT" }]
+        "morning_interrupt": {
+            "text": "Yanagi se detiene en seco. Mira su reloj, luego a ti. El aire se vuelve helado.\n\nYanagi: 'Acabas de costarme 12 segundos. Eso implica perder el tren de las 07:42, lo que retrasa el informe matutino 5 minutos. ¿Tienes una razón de emergencia de clase S para esto?'",
+            "options": [
+                { "txt": "Eh... ¿que tengas un buen día?", "next": "morning_cold", "effect": {"aff": -3} },
+                { "txt": "Reporte de actividad inusual en el Sector 4.", "req": {"stat":"INT", "val":10}, "next": "morning_report" }
+            ]
         },
-        "flirt_fail": {
-            "text": "La mujer se gira, arrugando el entrecejo con una frialdad electrizante. 'Lo lamento, estoy intentando comprar. ¿Podrías moverte?' — Su tono deja claro que eres una molestia.",
+        "morning_cold": {
+            "text": "Yanagi: 'Inaceptable.'\n\nElla reanuda la marcha, ignorándote por completo. Te sientes como una mota de polvo en su agenda.",
+            "options": [{"txt": "(Dejarla ir)", "next": "EXIT"}]
+        },
+
+        "// --- RUTINA DE TRABAJO (PATRULLA) ---": "",
+        "routine_work_patrol": {
+            "text": "Encuentras a Yanagi en un callejón de Ginza. Acaba de eliminar a un Etéreo menor con su naginata eléctrica. Está limpiando su arma con un pañuelo de seda, totalmente impasible.",
+            "options": [
+                { "txt": "Aplaudir su técnica.", "next": "work_clapping" },
+                { "txt": "Ofrecer ayuda con el papeleo post-combate.", "next": "work_paperwork" },
+                { "txt": "Preguntar si está herida.", "next": "work_concern" }
+            ]
+        },
+        "work_clapping": {
+            "text": "Yanagi: 'Esto no es un espectáculo, ciudadano. Es mantenimiento de saneamiento urbano. Circule.'\n\nNo parece impresionada por tus halagos.",
+            "options": [{"txt": "Entendido.", "next": "EXIT"}]
+        },
+        "work_paperwork": {
+            "text": "Sus ojos brillan por un microsegundo. Es la primera vez que ves una emoción positiva.\n\nYanagi: '¿Conoces el formulario 27-B de eliminación de residuos etéreos?'",
+            "options": [
+                { "txt": "Sí, y tengo un bolígrafo.", "req": {"stat":"INT", "val":15}, "next": "work_impressed", "effect": {"aff": 5} },
+                { "txt": "Eh, no, pero puedo aprender.", "next": "work_dismiss" }
+            ]
+        },
+        "work_impressed": {
+            "text": "Yanagi: '...Interesante. Pocos tienen la capacidad administrativa para ser útiles. Toma, llena la sección C. No cometas errores ortográficos.'\n\n(Te ha entregado trabajo, pero para ella, es una muestra de confianza máxima).",
+            "options": [{"txt": "A trabajar.", "next": "EXIT"}]
+        },
+
+        "// --- RUTINA DE NOCHE (PANADERÍA - ESCENA PRINCIPAL) ---": "",
+        "routine_bakery_evening": {
+            "text": "Estás por la plaza de Shinjuku. En una panadería ves a Yanagi. Fuera de su horario laboral, su postura es menos rígida, pero su mirada analítica sigue activa. Está observando un 'Pan de Melón Edición Limitada' como si fuera una bomba a desactivar.",
+            "options": [
+                { "txt": "Acercarse y comprar el mismo pan (Competencia)", "next": "bakery_rival" },
+                { "txt": "Saludarla formalmente.", "next": "bakery_greet" },
+                { "txt": "Apoyarse: 'Hey preciosa, ¿hora de colación?'", "next": "bakery_flirt_fail" }
+            ]
+        },
+        "bakery_rival": {
+            "text": "Tomas el penúltimo pan. Yanagi toma el último al mismo tiempo. Sus manos se rozan. Ella retira la mano como si le hubiera dado una descarga.\n\nYanagi: 'Rápido. Tus reflejos no son despreciables para un civil. Ese pan tiene un 15% más de crema que el estándar.'",
+            "options": [
+                { "txt": "Por eso lo elegí. Tengo buen gusto.", "next": "bakery_taste", "effect": {"aff": 3} },
+                { "txt": "Te lo cedo, parece que lo necesitas.", "next": "bakery_gift", "effect": {"aff": 8} }
+            ]
+        },
+        "bakery_gift": {
+            "text": "Yanagi parpadea dos veces. Se ajusta las gafas, algo nerviosa.\n\nYanagi: 'No requiero caridad... pero, según mis cálculos, mi ingesta calórica es deficiente hoy. Aceptaré tu oferta. Como transacción lógica, te debo una.'",
+            "options": [{"txt": "Es un placer.", "next": "EXIT"}]
+        },
+        "bakery_flirt_fail": {
+            "text": "La mujer se gira lentamente. La temperatura de la habitación parece bajar 10 grados. Te escanea de arriba a abajo con desprecio absoluto.\n\nYanagi: 'Lamentable. Tu intento de cortejo carece de lógica, eficiencia y gracia. Estás bloqueando el mostrador. Muévete.' (-5 Afecto)",
             "effect": { "aff": -5 },
-            "options": [{ "txt": "Eh... perdón. (Huir)", "next": "EXIT" }]
+            "options": [{"txt": "Perdón... (Huir)", "next": "EXIT"}]
+        },
+        "bakery_greet": {
+            "text": "Yanagi: 'Oh. Tú.'\n\nNo parece hostil, pero tampoco amigable. Simplemente reconoce tu existencia en su base de datos.",
+            "options": [
+                { "txt": "¿Recomendación del chef?", "next": "bakery_rec" },
+                { "txt": "Te dejo tranquila.", "next": "EXIT" }
+            ]
+        },
+        "bakery_rec": {
+            "text": "Yanagi: 'El Anpan de frijol rojo tiene la mejor relación costo-nutrición. El croissant es estructuralmente inestable y llena el uniforme de migas. Ineficiente. Elige el Anpan.'",
+            "options": [
+                { "txt": "Comprar Anpan (Obedecer)", "effect": {"aff": 2}, "next": "EXIT" },
+                { "txt": "Comprar Croissant (Rebeldía)", "effect": {"aff": -1}, "next": "bakery_messy" }
+            ]
+        },
+        "bakery_messy": {
+            "text": "Yanagi te ve comer el croissant mientras te llenas de migas. Niega con la cabeza levemente.\n\nYanagi: 'Caos. Puro caos.'",
+            "options": [{"txt": "...", "next": "EXIT"}]
+        },
+
+        "// --- RUTINA NOCTURNA (OVERTIME) ---": "",
+        "routine_night_overtime": {
+            "text": "Ves luz en la oficina de la Sección 6. Yanagi está sola, rodeada de torres de papel. Parece agotada, sus gafas están sobre el escritorio y se masajea las sienes.",
+            "options": [
+                { "txt": "Entrar y decirle que se vaya a casa.", "next": "night_scold" },
+                { "txt": "Dejarle una bebida energética en la puerta e irse.", "next": "night_silent_care", "req": {"item": "Bebida Energética"} },
+                { "txt": "Ignorarla.", "next": "EXIT" }
+            ]
+        },
+        "night_scold": {
+            "text": "Ella se sobresalta y se pone las gafas rápidamente, recuperando su postura de acero.\n\nYanagi: '¿Cómo entraste aquí? Esto es propiedad federal. Mi horario de salida es irrelevante cuando la seguridad de la ciudad está en juego. Vete.'",
+            "effect": {"aff": -2},
+            "options": [{"txt": "Solo me preocupaba...", "next": "EXIT"}]
+        },
+        "night_silent_care": {
+            "text": "(Narrador): Dejas la bebida sin que te vea. Al día siguiente, recibes un mensaje anónimo en tu terminal: 'La eficiencia aumentó un 12% gracias al suministro externo. Aceptable.'",
+            "effect": {"aff": 10},
+            "options": [{"txt": "Sonreír.", "next": "EXIT"}]
+        },
+
+        "// --- ESTADOS EXTREMOS ---": "",
+        "hate_encounter": {
+            "text": "Yanagi te ve cruzar la calle. Inmediatamente cambia de acera y hace una llamada por su radio. Parece que está solicitando una orden de restricción o vigilancia sobre ti.",
+            "options": [{"txt": "Mejor me voy...", "next": "EXIT"}]
+        },
+        "romance_root": {
+            "text": "Yanagi te espera. No está revisando informes. Te está mirando directamente a ti, y hay un leve sonrojo en sus mejillas, aunque su expresión sigue siendo seria.\n\nYanagi: 'Llegas... a tiempo. He reservado 45 minutos de mi agenda personal. Sin interrupciones. ¿Vamos?'",
+            "options": [
+                { "txt": "Vamos, Vicecapitana.", "next": "romance_walk" }
+            ]
+        },
+        "romance_walk": {
+            "text": "Caminan juntos. Ella roza tu mano 'accidentalmente'.\n\nYanagi: 'Tu presencia... optimiza mi estado de ánimo. Es un fenómeno ilógico que aún estoy intentando analizar.'",
+            "options": [{"txt": "<3", "next": "EXIT"}]
         }
     }
 }
