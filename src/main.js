@@ -2,6 +2,8 @@ import { player, dungeon, combat, STATS, RANKS } from './core/State.js';
 import { log, createFloatText, shakeScreen, varColor } from './core/Utils.js';
 import { NPC_DB } from './data/npc.js';
 import { SKILLS_DB } from './data/skills.js';
+import { TimeSystem } from './systems/TimeSystem.js';
+import { MapSystem } from './systems/MapSystem.js';
 
 // DATOS DE ORIGEN PARA CREACIÓN
 const ORIGINS = {
@@ -160,8 +162,7 @@ window.finalizeCreation = () => {
     if(player.blessing.active) player.skills.push(player.blessing.active);
 
     if (player.avatar) {
-        document.getElementById('hud-avatar').src = player.avatar;
-        document.getElementById('hud-avatar').style.display = 'block';
+        document.getElementById('cinematic-bg').style.backgroundImage = `url('${player.avatar}')`;
     }
     
     // document.getElementById('hud-origin').innerText = org.label; // Si tienes este elemento en el HTML
@@ -174,6 +175,8 @@ function startGame() {
     recalc();
     player.derived.hp = player.derived.maxHp;
     player.derived.mp = player.derived.maxMp;
+
+    TimeSystem.init();
 
     updateHUD();
     renderSidebar();
@@ -207,6 +210,11 @@ function addObjStats(target, source) {
 
 function updateHUD() {
     document.getElementById('hud-lvl').innerText = player.lvl;
+
+    let r = RANKS[player.rankIdx] || 'F';
+    if(document.getElementById('hud-rank')) document.getElementById('hud-rank').innerText = r;
+    if(document.getElementById('bg-rank')) document.getElementById('bg-rank').innerText = r;
+
     document.getElementById('hud-money').innerText = player.money.toLocaleString();
     
     let hpP = (player.derived.hp / player.derived.maxHp) * 100;
@@ -250,16 +258,9 @@ window.nav = (loc) => {
         title = "APARTAMENTO";
         html = `<button class="btn-gold" style="height:100px;" onclick="window.rest()">💤 DORMIR</button>`;
     } else if(loc === 'city') {
-        title = "CIUDAD";
-        html = `
-            <button onclick="window.visit('Ginza')">Ginza (Negocios)</button>
-            <button onclick="window.visit('Akihabara')">Akihabara (Ocio)</button>
-            <button onclick="window.visit('Shinjuku')">Shinjuku (Santuario)</button>
-            <button onclick="window.visit('Roppongi')">Roppongi (Noche)</button>
-            <button onclick="window.visit('Watatsumi')">Watatsumi (Isla)</button>
-        `;
+        MapSystem.render();
+        return; // MapSystem handles the rendering
     }
-    // ... Agregar Dungeon y Guild aquí si es necesario ...
     
     document.getElementById('loc-title').innerText = title;
     document.getElementById('action-grid').innerHTML = html;
@@ -269,15 +270,23 @@ window.rest = () => {
     player.derived.hp = player.derived.maxHp;
     player.derived.mp = player.derived.maxMp;
     player.energy = player.maxEnergy;
-    log("Has descansado. Energía restaurada.", "m-sys");
+    TimeSystem.sleep();
+    log("Has descansado. Energía restaurada. Son las 08:00 del día siguiente.", "m-sys");
     updateHUD();
 };
 
 window.visit = (zone) => {
     if(player.energy < 1) { log("Sin energía.", "m-sys"); return; }
-    player.energy--; updateHUD();
+    player.energy--;
+    TimeSystem.advance(30);
+    updateHUD();
     
-    let targets = Object.keys(NPC_DB).filter(k => NPC_DB[k].loc === zone);
+    let targets = Object.keys(NPC_DB).filter(k => {
+        let npc = NPC_DB[k];
+        if(npc.loc !== zone) return false;
+        return TimeSystem.checkSchedule(npc);
+    });
+
     if(targets.length > 0 && Math.random() < 0.6) {
         let npcName = targets[Math.floor(Math.random() * targets.length)];
         window.startDialogue(npcName);

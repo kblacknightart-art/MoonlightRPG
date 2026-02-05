@@ -1,0 +1,29 @@
+{
+    "name": "Jin",
+    "emoji": "\u2694\ufe0f",
+    "location": "Shinjuku",
+    "sublocation": "Dungeon",
+    "job": "Mercenary",
+    "schedule": {
+        "start": 20,
+        "end": 4
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Jin, the Mercenary.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

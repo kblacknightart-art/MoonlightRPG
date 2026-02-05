@@ -1,0 +1,29 @@
+{
+    "name": "Yumi",
+    "emoji": "\ud83d\udcda",
+    "location": "Akihabara",
+    "sublocation": "Library",
+    "job": "Student",
+    "schedule": {
+        "start": 8,
+        "end": 16
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Yumi, the Student.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

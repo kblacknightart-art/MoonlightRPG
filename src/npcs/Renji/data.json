@@ -1,0 +1,29 @@
+{
+    "name": "Renji",
+    "emoji": "\ud83c\udfb8",
+    "location": "Shibuya",
+    "sublocation": "Street",
+    "job": "Musician",
+    "schedule": {
+        "start": 18,
+        "end": 24
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Renji, the Musician.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

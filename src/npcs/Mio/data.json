@@ -1,0 +1,29 @@
+{
+    "name": "Mio",
+    "emoji": "\ud83d\udc31",
+    "location": "Ginza",
+    "sublocation": "Cafe",
+    "job": "Maid",
+    "schedule": {
+        "start": 10,
+        "end": 19
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Mio, the Maid.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

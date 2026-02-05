@@ -15,7 +15,8 @@ export let player = {
     rankIdx: 0, blessing: null, rerolls: 1,
     inventory: [], equipment: { weapon:null, armor:null, acc:null },
     skills: [], social: {}, factionRep: { 'Ningguang Co.':0, 'Editorial Yae':0, 'Moonlight':10, 'Gremio':0 },
-    business: { active:false, dailyIncome:0, type:null }
+    business: { active:false, dailyIncome:0, type:null },
+    time: { day: 0, min: 480 }
 };
 
 export let dungeon = { active:false, rank:0, floor:1, mobsLeft:0, boss:false };

@@ -1,0 +1,29 @@
+{
+    "name": "Hiro",
+    "emoji": "\ud83d\udd27",
+    "location": "Akihabara",
+    "sublocation": "Lab",
+    "job": "Engineer",
+    "schedule": {
+        "start": 9,
+        "end": 18
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Hiro, the Engineer.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

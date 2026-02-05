@@ -1,0 +1,29 @@
+{
+    "name": "Taro",
+    "emoji": "\ud83d\udc36",
+    "location": "Shibuya",
+    "sublocation": "Park",
+    "job": "Walker",
+    "schedule": {
+        "start": 7,
+        "end": 10
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Taro, the Walker.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

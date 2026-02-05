@@ -28,7 +28,7 @@ body {
 
 #game-layout {
     width: 1500px; height: 950px; display: grid;
-    grid-template-columns: 320px 1fr 320px; grid-template-rows: 60px 1fr 70px;
+    grid-template-columns: 320px 1fr 320px; grid-template-rows: 150px 1fr 70px;
     grid-template-areas: "header header header" "side-l main side-r" "nav nav nav";
     gap: 15px; padding: 15px;
 }
@@ -202,3 +202,188 @@ button:disabled { opacity: 0.3; cursor: not-allowed; }
     background: #0f172a; padding: 8px; margin-bottom: 5px; border-radius: 4px;
 }
 .stat-control button { padding: 2px 8px; font-size: 12px; height: auto; }
+/* --- CINEMATIC HEADER --- */
+header.panel {
+    height: 150px !important;
+    position: relative;
+    padding: 0 !important;
+    overflow: hidden;
+    background: #000 !important; /* Fallback */
+    display: block !important; /* Reset flex for grid/absolute layout inside */
+}
+
+.cinematic-avatar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 60%; /* 50-60% left */
+    height: 100%;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    /* Gradient Mask: Visible on left, transparent on right */
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+    transition: background-image 0.5s ease;
+}
+
+.cinematic-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, rgba(2,6,23,0.3) 0%, rgba(2,6,23,0.95) 50%, #020617 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.header-left {
+    width: 40%;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 20px;
+}
+
+.header-right {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    text-align: right;
+}
+
+.player-identity {
+    margin-bottom: 5px;
+}
+
+#hud-name {
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+    margin: 0;
+    line-height: 1;
+}
+
+.rank-display {
+    font-size: 60px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.1);
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    z-index: 0;
+}
+
+.hud-stats-grid {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.stat-block {
+    width: 150px;
+}
+
+/* --- MAP SYSTEM --- */
+.map-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+    height: 100%;
+    padding: 10px;
+}
+
+.map-district {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.map-district:hover {
+    border-color: var(--d-color);
+    box-shadow: 0 0 20px var(--d-color), inset 0 0 20px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
+    transform: scale(1.02);
+}
+
+.map-district::before {
+    content: '';
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: var(--d-color);
+    opacity: 0.05;
+    z-index: 0;
+}
+
+.d-name {
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    z-index: 1;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    text-transform: uppercase;
+}
+
+.d-desc {
+    font-size: 10px;
+    color: #94a3b8;
+    z-index: 1;
+    margin-top: 5px;
+}
+
+/* Location List */
+.loc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    height: 300px;
+}
+
+.loc-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.loc-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-left: 3px solid var(--secondary);
+}
+
+.npc-card {
+    border-color: rgba(217, 70, 239, 0.3);
+}
+.npc-card:hover {
+    border-left-color: var(--primary);
+}
+
+.loc-name { font-weight: bold; color: #fff; font-size: 14px; }
+.loc-desc { font-size: 11px; color: #94a3b8; margin-top: 3px; }

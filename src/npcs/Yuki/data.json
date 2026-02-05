@@ -1,0 +1,29 @@
+{
+    "name": "Yuki",
+    "emoji": "\u2744\ufe0f",
+    "location": "Shinjuku",
+    "sublocation": "Club",
+    "job": "Host",
+    "schedule": {
+        "start": 22,
+        "end": 5
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Yuki, the Host.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}

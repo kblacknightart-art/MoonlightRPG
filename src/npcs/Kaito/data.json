@@ -1,0 +1,29 @@
+{
+    "name": "Kaito",
+    "emoji": "\ud83d\udd75\ufe0f",
+    "location": "Roppongi",
+    "sublocation": "Office",
+    "job": "Detective",
+    "schedule": {
+        "start": 8,
+        "end": 20
+    },
+    "topics": {
+        "root": {
+            "text": "Hello, I am Kaito, the Detective.",
+            "opts": [
+                {
+                    "t": "Chat",
+                    "n": "chat"
+                }
+            ]
+        },
+        "chat": {
+            "text": "Nice weather.",
+            "win": {
+                "aff": 5,
+                "txt": "Indeed."
+            }
+        }
+    }
+}
