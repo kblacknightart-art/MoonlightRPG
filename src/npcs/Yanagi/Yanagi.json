@@ -1,0 +1,38 @@
+{
+    "info": {
+        "id": "Yanagi",
+        "name": "Tsukishiro Yanagi",
+        "job": "Agente de Operaciones Especiales",
+        "emoji": "👓"
+    },
+    "dialogues": {
+        "root": {
+            "text": "Estás por la plaza de Shinjuku. En una panadería ves a una mujer de cabello rosa observando el mostrador con precisión militar. Parece estar calculando las calorías de un pan de melón.",
+            "options": [
+                { "txt": "Acercarse y buscar un dulce también (Ignorarla)", "next": "ignore" },
+                { "txt": "Saludarla cortésmente", "next": "greet" },
+                { "txt": "Apoyarse: 'Hey preciosa, ¿hora de colación?'", "next": "flirt_fail" }
+            ]
+        },
+        "ignore": {
+            "text": "(Narrador): La mujer termina sus compras con eficiencia, paga exacto y se marcha. Para ella, eres un NPC más.",
+            "options": [{ "txt": "(Terminar)", "next": "EXIT" }]
+        },
+        "greet": {
+            "text": "Oh, disculpa. ¿Te conozco? — Dice mirándote fijamente, analizando tu postura y nivel de amenaza.",
+            "options": [
+                { "txt": "Soy un nuevo Cazador en la zona.", "next": "greet_hunter", "effect": { "aff": 5 } },
+                { "txt": "No, solo quería ser amable.", "next": "greet_civilian", "effect": { "aff": 2 } }
+            ]
+        },
+        "greet_hunter": {
+            "text": "Un Cazador... Ya veo. Soy Yanagi, de la Sección 6. Procura no causar problemas en mi distrito.",
+            "options": [{ "txt": "Entendido. (Terminar)", "next": "EXIT" }]
+        },
+        "flirt_fail": {
+            "text": "La mujer se gira, arrugando el entrecejo con una frialdad electrizante. 'Lo lamento, estoy intentando comprar. ¿Podrías moverte?' — Su tono deja claro que eres una molestia.",
+            "effect": { "aff": -5 },
+            "options": [{ "txt": "Eh... perdón. (Huir)", "next": "EXIT" }]
+        }
+    }
+}

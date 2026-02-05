@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight Overlord: Genesis Final</title>
+    <link rel="stylesheet" href="src/style/main.css">
+</head>
+<body>
+
+<div id="game-layout">
+    <header class="panel">
+        <div class="hud-group" style="width: 250px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img id="hud-avatar" src="" class="avatar-mini" style="display:none;">
+                <div class="rank-badge" id="hud-rank" style="color:#94a3b8;">F</div>
+                <div style="line-height: 1.2;">
+                    <div style="font-size:16px; font-weight:800; letter-spacing:1px;" id="hud-name">[Y/N]</div>
+                    <div style="font-size:11px; color:#94a3b8;">NVL <span id="hud-lvl" style="color:#fff;">1</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hud-group" style="flex-grow: 1; justify-content: center; gap: 30px;">
+            <div class="bar-wrapper">
+                <div class="bar-meta"><span>HP</span><span id="txt-hp">100/100</span></div>
+                <div class="bar-bg"><div id="bar-hp" class="bar-fill hp-c" style="width:100%"></div></div>
+            </div>
+            <div class="bar-wrapper">
+                <div class="bar-meta"><span>MP</span><span id="txt-mp">50/50</span></div>
+                <div class="bar-bg"><div id="bar-mp" class="bar-fill mp-c" style="width:100%"></div></div>
+            </div>
+            <div class="bar-wrapper">
+                <div class="bar-meta"><span>EXP</span><span id="txt-exp">0%</span></div>
+                <div class="bar-bg"><div id="bar-exp" class="bar-fill xp-c" style="width:0%"></div></div>
+            </div>
+        </div>
+
+        <div class="hud-group" style="width: 250px; justify-content: flex-end;">
+            <div style="text-align: right; margin-right: 15px;">
+                <div style="color:var(--gold); font-weight:bold; font-size:15px;">¥ <span id="hud-money">0</span></div>
+            </div>
+            <div class="bar-wrapper" style="width: 80px;">
+                <div class="bar-meta"><span>ENERGÍA</span><span id="hud-energy">10/10</span></div>
+                <div class="bar-bg"><div id="bar-en" class="bar-fill en-c" style="width:100%"></div></div>
+            </div>
+        </div>
+    </header>
+
+    <aside id="side-l" class="panel">
+        <h4>ESTADÍSTICAS</h4>
+        <div id="stats-render"></div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:5px; margin-top:10px;">
+            <button class="btn-gold" onclick="window.openLevelUp()" style="font-size:10px; padding:8px;">⬆ NIVEL</button>
+            <button class="btn-secondary" onclick="window.openSkills()" style="font-size:10px; padding:8px;">📖 SKILLS</button>
+        </div>
+        
+        <br>
+        <h4>BENDICIÓN</h4>
+        <div id="bless-card" style="padding:10px; border:1px solid #334155; background:rgba(0,0,0,0.2); font-size:12px; text-align:center;">
+            <div style="color:#64748b;">Sin Bendición</div>
+        </div>
+
+        <br>
+        <h4>FACCIONES</h4>
+        <div id="factions-list" style="overflow-y:auto; flex-grow:1;"></div>
+    </aside>
+
+    <main id="main-stage" class="panel">
+        <div id="loc-header">
+            <span id="loc-title" style="color:var(--secondary); font-weight:800; font-size:18px; letter-spacing:1px;">SISTEMA INACTIVO</span>
+            <span style="font-size:10px; color:#64748b; font-family:var(--font-mono);">MOONLIGHT OS v9.5</span>
+        </div>
+
+        <div id="game-log">
+            <div class="msg m-sys">> Inicia sesión para continuar...</div>
+        </div>
+
+        <div id="action-grid"></div>
+    </main>
+
+    <aside id="side-r" class="panel">
+        <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); margin-bottom:10px; padding-bottom:5px;">
+            <h4 style="border:none; margin:0;">EQUIPO</h4>
+            <button style="padding:2px 6px; font-size:10px;" onclick="window.openInventory()">GESTIONAR</button>
+        </div>
+        <div id="eq-slots" style="font-size:11px; margin-bottom:20px;">
+            <div style="margin-bottom:4px; color:#94a3b8;">Arma: <span id="eq-w" style="color:#fff">Puños</span></div>
+            <div style="margin-bottom:4px; color:#94a3b8;">Torso: <span id="eq-a" style="color:#fff">Ropa Civil</span></div>
+            <div style="margin-bottom:4px; color:#94a3b8;">Acc: <span id="eq-acc" style="color:#fff">-</span></div>
+        </div>
+
+        <h4>RED SOCIAL (AFECTO)</h4>
+        <div id="social-feed" style="flex-grow:1; overflow-y:auto; font-size:12px;"></div>
+    </aside>
+
+    <nav id="nav-bar" class="panel">
+        <button class="nav-btn" onclick="window.nav('home')">🏠 BASE</button>
+        <button class="nav-btn" onclick="window.nav('city')">🏙️ CIUDAD</button>
+        <button class="nav-btn" onclick="window.nav('dungeon')">⚔️ MAZMORRA</button>
+        <button class="nav-btn" onclick="window.nav('guild')">📜 GREMIO</button>
+        <button class="nav-btn" onclick="window.nav('biz')">💼 NEGOCIOS</button>
+    </nav>
+</div>
+
+<div id="modal-creation" class="overlay active">
+    <div class="modal-box" style="width: 1100px; max-height: 95vh;">
+        <h2 style="color:var(--primary); text-align:center; margin-bottom: 20px; letter-spacing: 2px;">IDENTIDAD DEL CAZADOR</h2>
+        
+        <div class="creation-layout">
+            <div class="col-avatar">
+                <div class="avatar-uploader" onclick="document.getElementById('file-input').click()">
+                    <img id="avatar-preview" src="" style="display:none;">
+                    <div id="avatar-placeholder">+</div>
+                    <div style="font-size:10px; color:#aaa; margin-top:5px;">SUBIR IMAGEN</div>
+                </div>
+                <input type="file" id="file-input" accept="image/*" style="display:none;" onchange="window.handleAvatar(this)">
+                
+                <div class="input-group">
+                    <label>NOMBRE CLAVE</label>
+                    <input type="text" id="inp-name" value="Ren" placeholder="Nombre...">
+                </div>
+            </div>
+
+            <div class="col-origin">
+                <h4 style="text-align:center; color:var(--secondary)">SELECCIONA TU ORIGEN</h4>
+                <div class="origin-grid">
+                    <div class="origin-card" onclick="window.selectOrigin('student')" id="card-student">
+                        <div class="org-icon">🎓</div>
+                        <div class="org-title">ESTUDIANTE</div>
+                        <div class="org-desc">Joven y lleno de potencial.</div>
+                        <div class="org-stats">
+                            <div>💴 ¥1,000</div>
+                            <div>⚡ EN: +5</div>
+                            <div style="color:var(--success)">+5 LCK, +8 VIT, +5 AGI</div>
+                        </div>
+                    </div>
+                    <div class="origin-card" onclick="window.selectOrigin('uni')" id="card-uni">
+                        <div class="org-icon">📚</div>
+                        <div class="org-title">UNIVERSITARIO</div>
+                        <div class="org-desc">Equilibrado y analítico.</div>
+                        <div class="org-stats">
+                            <div>💴 ¥2,000</div>
+                            <div>⚡ EN: +0</div>
+                            <div style="color:var(--secondary)">+5 INT, +5 VIT</div>
+                        </div>
+                    </div>
+                    <div class="origin-card" onclick="window.selectOrigin('office')" id="card-office">
+                        <div class="org-icon">💼</div>
+                        <div class="org-title">OFICINISTA</div>
+                        <div class="org-desc">Cansado pero con recursos.</div>
+                        <div class="org-stats">
+                            <div>💴 ¥60,000</div>
+                            <div>⚡ EN: -2</div>
+                            <div style="color:var(--gold)">+15 INT, -5 VIT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-stats">
+                <h4 style="text-align:center; color:var(--gold)">DISTRIBUCIÓN (PTS: <span id="cp-val">15</span>)</h4>
+                <div id="create-stats-ui"></div>
+                
+                <div class="blessing-section">
+                    <hr style="border-color:#333; margin:15px 0;">
+                    <button id="btn-roll" onclick="window.rollBlessing()" class="btn-gold" style="width:100%;">🔮 SINTONIZAR BENDICIÓN</button>
+                    <button id="btn-reroll" onclick="window.rerollBlessing()" class="btn-danger" style="width:100%; display:none; margin-top:5px;">🎲 RE-ROLL (1/1)</button>
+                    <div id="bless-res" style="text-align:center; margin-top:10px; font-weight:bold; min-height:40px; font-size:13px; color:#aaa;">Esperando sintonización...</div>
+                </div>
+            </div>
+        </div>
+
+        <button id="btn-start" onclick="window.finalizeCreation()" style="width:100%; margin-top:20px; display:none; background:var(--success); color:#fff; padding:15px; font-size:16px; border:none; cursor:pointer;">DESPERTAR</button>
+    </div>
+</div>
+
+<div id="modal-level" class="overlay">
+    <div class="modal-box" style="flex-direction: row; gap:20px;">
+        <div style="flex:1;">
+            <h3 style="color:var(--gold); margin-top:0;">STATS (AP: <span id="ui-ap">0</span>)</h3>
+            <div id="ui-stats-list"></div>
+        </div>
+        <div style="flex:2; border-left:1px solid #333; padding-left:20px;">
+            <h3 style="color:var(--primary); margin-top:0;">TIENDA (SP: <span id="ui-sp">0</span>)</h3>
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button onclick="window.renderShop('basic')" style="padding:5px 10px; font-size:10px;">BÁSICAS</button>
+                <button onclick="window.renderShop('inter')" style="padding:5px 10px; font-size:10px;">INTER</button>
+                <button onclick="window.renderShop('adv')" style="padding:5px 10px; font-size:10px;">AVANZ</button>
+            </div>
+            <div id="shop-list" style="height:400px; overflow-y:auto;"></div>
+        </div>
+        <button onclick="window.closeModal('modal-level')" style="position:absolute; top:20px; right:20px; width:40px; background:#ef4444;">X</button>
+    </div>
+</div>
+
+<div id="modal-inv" class="overlay">
+    <div class="modal-box">
+        <h3 style="color:var(--secondary); margin-top:0;">GESTIÓN DE EQUIPO</h3>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; height:500px;">
+            <div style="border:1px solid #333; padding:10px;">
+                <h4 style="margin-top:0;">MOCHILA</h4>
+                <div id="ui-bag" style="overflow-y:auto; height:430px;"></div>
+            </div>
+            <div>
+                <h4 style="margin-top:0;">EQUIPADO</h4>
+                <div id="ui-eq-panel"></div>
+            </div>
+        </div>
+        <button onclick="window.closeModal('modal-inv')" style="margin-top:20px;">CERRAR</button>
+    </div>
+</div>
+
+<div id="modal-date" class="overlay">
+    <div class="modal-box" style="width: 1000px;">
+        <div class="npc-layout">
+            <div class="npc-sidebar">
+                <div class="npc-portrait" id="npc-face">?</div>
+                <h2 id="npc-name" style="color:var(--primary); margin:0;">Nombre</h2>
+                <div class="npc-love-bar"><div class="npc-love-fill" id="npc-bar"></div></div>
+                <div style="font-size:10px; margin-top:5px;">AFECTO: <span id="npc-val">0</span></div>
+            </div>
+            <div class="chat-area">
+                <div class="chat-history" id="chat-hist"></div>
+                <div class="chat-opts" id="chat-opts"></div>
+            </div>
+        </div>
+        <button onclick="window.closeModal('modal-date')" style="position:absolute; top:20px; right:20px; width:40px; background:#ef4444;">X</button>
+    </div>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
