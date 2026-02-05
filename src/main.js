@@ -7,7 +7,7 @@ import { SKILLS_DB } from './data/skills.js';
 const ORIGINS = {
     'student': { label: 'Estudiante', money: 1000, enBonus: 5, stats: { LCK: 5, VIT: 8, AGI: 5 } },
     'uni': { label: 'Universitario', money: 2000, enBonus: 0, stats: { INT: 5, VIT: 5 } },
-    'salary': { label: 'Oficinista', money: 60000, enBonus: -2, stats: { INT: 15, VIT: -5 } }
+    'office': { label: 'Oficinista', money: 60000, enBonus: -2, stats: { INT: 15, VIT: -5 } }
 };
 
 let currentOrigin = null;
