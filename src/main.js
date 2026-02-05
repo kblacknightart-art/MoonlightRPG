@@ -300,6 +300,7 @@ let currNPC = null;
 
 window.startDialogue = (name) => {
     currNPC = name;
+    if (!player.social[name]) player.social[name] = { aff: 0, known: false };
     player.social[name].known = true;
     renderSidebar(); // Actualizar lista social
     
