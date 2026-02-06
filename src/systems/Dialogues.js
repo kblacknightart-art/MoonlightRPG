@@ -1,5 +1,5 @@
 import { player } from '../core/State.js';
-import { NPC_DB } from '../data/npcs.js';
+import { NPC_DB } from '../data/npc.js';
 import { UI } from './UI.js';
 import { varColor } from '../core/Utils.js';
 
