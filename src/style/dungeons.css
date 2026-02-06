@@ -24,22 +24,22 @@
     background-size: auto 100%; /* Ajustar altura */
 }
 
-#layer-bg { z-index: 1; background-image: url('../../assets/dungeon/Background-forest01.png'); background-size: cover; }
+#layer-bg { z-index: 1; background-image: url('../assets/dungeon/Background-forest01.png'); background-size: cover; }
 
-#layer-mid { z-index: 2; background-image: url('../../assets/dungeon/Background-forest03.png'); } /* Árboles lejanos */
-#layer-fore { z-index: 3; background-image: url('../../assets/dungeon/Background-forest02.png'); } /* Árboles cercanos */
+#layer-mid { z-index: 2; background-image: url('../assets/dungeon/Background-forest03.png'); } /* Árboles lejanos */
+#layer-fore { z-index: 3; background-image: url('../assets/dungeon/Background-forest02.png'); } /* Árboles cercanos */
 #layer-ground { 
     z-index: 4; 
     height: 60px; /* Altura del suelo */
     top: auto; bottom: 0;
-    background-image: url('../../assets/dungeon/Tile01.png'); 
+    background-image: url('../assets/dungeon/Tile01.png');
     background-repeat: repeat-x;
 }
 
 /* PERSONAJES */
 .sprite {
     position: absolute;
-    bottom: 45px; /* Ajustar según el suelo */
+    bottom: 25px; /* Ajustar según el suelo */
     z-index: 10;
     image-rendering: pixelated; /* Para que el pixel art se vea nítido */
 }
