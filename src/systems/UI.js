@@ -1,5 +1,5 @@
 import { player, STATS, RANKS } from '../core/State.js';
-import { NPC_DB } from '../data/npcs.js';
+import { NPC_DB } from '../data/npc.js';
 
 export const UI = {
     updateHUD() {
