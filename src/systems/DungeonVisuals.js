@@ -1,18 +1,18 @@
 // Rutas de Assets
 const ASSETS = {
-    bg1: 'assets/dungeon/Background-forest01.png',
-    bg2: 'assets/dungeon/Background-forest02.png', // Se mueve a la izquierda
-    bg3: 'assets/dungeon/Background-forest03.png', // Se mueve a la derecha
-    ground: 'assets/dungeon/Tile01.png',
-    playerIdle: 'assets/dungeon/Mage-2.gif',
-    playerWalk: 'assets/dungeon/Mage-2-walking.gif',
-    enemyIdle: 'assets/dungeon/Poring-walk.gif',
-    enemyAtk: 'assets/dungeon/poring-attack.gif'
+    bg1: 'src/assets/dungeon/Background-forest01.png',
+    bg2: 'src/assets/dungeon/Background-forest02.png', // Se mueve a la izquierda
+    bg3: 'src/assets/dungeon/Background-forest03.png', // Se mueve a la derecha
+    ground: 'src/assets/dungeon/Tile01.png',
+    playerIdle: 'src/assets/dungeon/Mage-2.gif',
+    playerWalk: 'src/assets/dungeon/Mage-2-walking.gif',
+    enemyIdle: 'src/assets/dungeon/Poring-walk.gif',
+    enemyAtk: 'src/assets/dungeon/poring-attack.gif'
 };
 
 export const DungeonVisuals = {
     init: () => {
-        const stage = document.getElementById('main-stage');
+        const stage = document.getElementById('action-grid');
         // Inyectar HTML Estructura
         stage.innerHTML = `
             <div id="dungeon-container">
@@ -48,22 +48,22 @@ export const DungeonVisuals = {
         const enemy = document.getElementById('enemy-sprite');
 
         // 1. Ocultar enemigo
-        enemy.style.display = 'none';
+        if(enemy) enemy.style.display = 'none';
 
         // 2. Cambiar GIF personaje
-        pSprite.src = ASSETS.playerWalk;
+        if(pSprite) pSprite.src = ASSETS.playerWalk;
 
         // 3. Activar clases CSS de movimiento
-        lMid.classList.add('anim-move-right'); // Fondo lejano se mueve opuesto (derecha)
-        lFore.classList.add('anim-move-left'); // Fondo cercano se mueve rápido (izquierda)
-        lGround.classList.add('anim-move-ground');
+        if(lMid) lMid.classList.add('anim-move-right'); // Fondo lejano se mueve opuesto (derecha)
+        if(lFore) lFore.classList.add('anim-move-left'); // Fondo cercano se mueve rápido (izquierda)
+        if(lGround) lGround.classList.add('anim-move-ground');
     },
 
     stopWalking: () => {
         const pSprite = document.getElementById('player-sprite');
         
         // 1. Restaurar GIF Idle
-        pSprite.src = ASSETS.playerIdle;
+        if(pSprite) pSprite.src = ASSETS.playerIdle;
 
         // 2. Quitar clases
         document.querySelectorAll('.parallax-layer').forEach(el => {
@@ -73,6 +73,7 @@ export const DungeonVisuals = {
 
     showEnemy: (isBoss = false) => {
         const enemy = document.getElementById('enemy-sprite');
+        if(!enemy) return;
         enemy.src = ASSETS.enemyIdle; // Resetear gif
         enemy.style.display = 'block';
         
@@ -83,6 +84,7 @@ export const DungeonVisuals = {
 
     playEnemyAttack: () => {
         const enemy = document.getElementById('enemy-sprite');
+        if(!enemy) return;
         enemy.src = ASSETS.enemyAtk;
         // Restaurar a idle después de 1 seg (duración aprox del gif)
         setTimeout(() => { enemy.src = ASSETS.enemyIdle; }, 1000);
@@ -90,12 +92,15 @@ export const DungeonVisuals = {
 
     updateLog: (msg) => {
         const box = document.getElementById('combat-log');
-        box.innerHTML += `<div>${msg}</div>`;
-        box.scrollTop = box.scrollHeight;
+        if(box) {
+            box.innerHTML += `<div>${msg}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }
     },
 
     renderButtons: (buttons) => {
         const container = document.getElementById('combat-actions');
+        if(!container) return;
         container.innerHTML = '';
         buttons.forEach(btn => {
             const b = document.createElement('button');
@@ -106,5 +111,3 @@ export const DungeonVisuals = {
         });
     }
 };
-
-
