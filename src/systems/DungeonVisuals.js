@@ -12,8 +12,9 @@ const ASSETS = {
 
 export const DungeonVisuals = {
     init: () => {
-        const stage = document.getElementById('action-grid');
+        const stage = document.getElementById('main-stage');
         // Inyectar HTML Estructura
+        // Usamos game-log para mantener compatibilidad con Utils.log
         stage.innerHTML = `
             <div id="dungeon-container">
                 <div id="dungeon-visuals">
@@ -29,11 +30,11 @@ export const DungeonVisuals = {
                 </div>
 
                 <div id="dungeon-controls">
-                    <div id="combat-log" style="grid-column: 1 / -1; height: 60px; overflow-y:auto; font-size:12px; color:#aaa; margin-bottom:10px; border-bottom:1px solid #333;">
-                        > Entraste a la mazmorra.
+                    <div id="game-log" style="grid-column: 1 / -1; height: 60px; overflow-y:auto; font-size:12px; color:#aaa; margin-bottom:10px; border-bottom:1px solid #333; font-family:var(--font-mono); padding:5px;">
+                        <div class="msg m-sys">> Entraste a la mazmorra.</div>
                     </div>
                     <div id="combat-actions" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; width:100%;">
-                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -91,9 +92,9 @@ export const DungeonVisuals = {
     },
 
     updateLog: (msg) => {
-        const box = document.getElementById('combat-log');
+        const box = document.getElementById('game-log');
         if(box) {
-            box.innerHTML += `<div>${msg}</div>`;
+            box.innerHTML += `<div>> ${msg}</div>`;
             box.scrollTop = box.scrollHeight;
         }
     },
