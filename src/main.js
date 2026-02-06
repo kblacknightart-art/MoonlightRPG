@@ -1,6 +1,6 @@
 import { player, dungeon, combat, STATS, RANKS } from './core/State.js';
 import { log, createFloatText, shakeScreen, varColor } from './core/Utils.js';
-import { NPC_DB } from './data/npcs.js'; // CORREGIDO: "npcs.js" en plural
+import { NPC_DB } from './data/npc.js'; // CORREGIDO: "npcs.js" en plural
 import { SKILLS_DB } from './data/skills.js';
 import { TimeSystem } from './systems/TimeSystem.js';
 import { MapSystem } from './systems/MapSystem.js';
