@@ -1,4 +1,4 @@
-import { NPC_DB } from '../data/npc.js';
+import { NPC_DB } from '../data/npcs.js'; // CORREGIDO: "npcs.js"
 import { TimeSystem } from './TimeSystem.js';
 import { log } from '../core/Utils.js';
 
@@ -12,7 +12,7 @@ const DISTRICTS = [
     { name: 'Watatsumi', desc: 'Isla Sagrada', color: '#38bdf8' }
 ];
 
-// Base de datos de Locaciones Fijas (Mazmorras, Edificios, Gremio)
+// Base de datos de Locaciones Fijas
 const STATIC_LOCATIONS = {
     'Shinjuku': [
         { type: 'dungeon', rank: 'F', name: 'Alcantarillas', desc: 'Nivel rec: 1-5' },
@@ -33,9 +33,6 @@ const STATIC_LOCATIONS = {
 };
 
 export const MapSystem = {
-    /**
-     * Renderiza la vista principal del Mapa de Tokyo (Cuadrícula de Distritos)
-     */
     render: () => {
         const stage = document.getElementById('main-stage');
         stage.innerHTML = `
@@ -57,23 +54,21 @@ export const MapSystem = {
         `;
     },
 
-    /**
-     * Abre la vista detallada de un Distrito específico
-     */
     openDistrict: (name) => {
         const distData = DISTRICTS.find(d => d.name === name);
         const stage = document.getElementById('main-stage');
 
-        // 1. Filtrar NPCs que están aquí AHORA (Usando TimeSystem o Location estática)
+        // 1. Filtrar NPCs aquí
         const npcsHere = Object.values(NPC_DB).filter(npc => {
-            // Si TimeSystem existe y tiene horarios, úsalo. Si no, usa la ubicación por defecto.
+            // Verifica horarios si TimeSystem está disponible
             if (window.TimeSystem && typeof window.TimeSystem.checkSchedule === 'function') {
                 return window.TimeSystem.checkSchedule(npc) === name;
             }
+            // Fallback a ubicación estática
             return npc.loc === name; 
         });
 
-        // 2. Obtener locaciones fijas del distrito
+        // 2. Obtener locaciones fijas
         const locsHere = STATIC_LOCATIONS[name] || [];
 
         const html = `
@@ -97,12 +92,11 @@ export const MapSystem = {
                     if (loc.type === 'dungeon') {
                         icon = "⚔️";
                         style = "border:1px solid var(--danger); background:rgba(239, 68, 68, 0.05);";
-                        // Asumimos que existe una función global para entrar a mazmorras
+                        // Conecta con la función global enterDungeon en main.js
                         action = `onclick="window.enterDungeon('${loc.rank}')"`;
                     } else if (loc.type === 'guild') {
                         icon = "📜";
                         style = "border:1px solid var(--gold); background:rgba(250, 204, 21, 0.05);";
-                        // Redirigir a lógica de Gremio
                         action = `onclick="window.log('Bienvenido al Gremio. (Funcionalidad WIP)', 'm-sys')"`; 
                     } else if (loc.type === 'shop') {
                         icon = "🛒";

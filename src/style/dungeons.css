@@ -1,0 +1,81 @@
+/* ESCENARIO DE MAZMORRA */
+#dungeon-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* 1. VISUAL STAGE (60% Alto) */
+#dungeon-visuals {
+    height: 65%;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    border-bottom: 2px solid var(--border);
+}
+
+/* CAPAS PARALLAX */
+.parallax-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-repeat: repeat-x;
+    background-size: auto 100%; /* Ajustar altura */
+}
+
+#layer-bg { z-index: 1; background-image: url('../../assets/dungeon/Background-forest01.png'); background-size: cover; }
+
+#layer-mid { z-index: 2; background-image: url('../../assets/dungeon/Background-forest03.png'); } /* Árboles lejanos */
+#layer-fore { z-index: 3; background-image: url('../../assets/dungeon/Background-forest02.png'); } /* Árboles cercanos */
+#layer-ground { 
+    z-index: 4; 
+    height: 60px; /* Altura del suelo */
+    top: auto; bottom: 0;
+    background-image: url('../../assets/dungeon/Tile01.png'); 
+    background-repeat: repeat-x;
+}
+
+/* PERSONAJES */
+.sprite {
+    position: absolute;
+    bottom: 45px; /* Ajustar según el suelo */
+    z-index: 10;
+    image-rendering: pixelated; /* Para que el pixel art se vea nítido */
+}
+
+#player-sprite {
+    left: 20%;
+    height: 80px; /* Ajustar tamaño visual */
+}
+
+#enemy-sprite {
+    right: 20%;
+    height: 60px;
+    transform: scaleX(-1); /* Voltear para mirar al jugador si es necesario */
+    display: none; /* Oculto por defecto */
+}
+
+/* ANIMACIONES DE MOVIMIENTO */
+.anim-move-left { animation: scrollLeft 3s linear infinite; }
+.anim-move-right { animation: scrollRight 3s linear infinite; }
+.anim-move-ground { animation: scrollLeft 1s linear infinite; }
+
+@keyframes scrollLeft { from { background-position: 0 0; } to { background-position: -100% 0; } }
+@keyframes scrollRight { from { background-position: 0 0; } to { background-position: 100% 0; } }
+
+/* 2. CONTROL PANEL (35% Alto) */
+#dungeon-controls {
+    height: 35%;
+    background: rgba(0,0,0,0.6);
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* ESTADOS DE COMBATE (Efectos) */
+.damage-shake { animation: shake 0.5s; }
+.attack-lunge { animation: lunge 0.3s; }
+
+@keyframes lunge { 0% { transform: translateX(0); } 50% { transform: translateX(20px); } 100% { transform: translateX(0); } }

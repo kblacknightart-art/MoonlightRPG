@@ -1,9 +1,10 @@
 import { player, dungeon, combat, STATS, RANKS } from './core/State.js';
 import { log, createFloatText, shakeScreen, varColor } from './core/Utils.js';
-import { NPC_DB } from './data/npc.js';
+import { NPC_DB } from './data/npcs.js'; // CORREGIDO: "npcs.js" en plural
 import { SKILLS_DB } from './data/skills.js';
 import { TimeSystem } from './systems/TimeSystem.js';
 import { MapSystem } from './systems/MapSystem.js';
+import { Combat } from './systems/Combat.js'; // NUEVO: Importar sistema de combate
 
 // DATOS DE ORIGEN PARA CREACIÓN
 const ORIGINS = {
@@ -162,11 +163,14 @@ window.finalizeCreation = () => {
     if(player.blessing.active) player.skills.push(player.blessing.active);
 
     if (player.avatar) {
-        document.getElementById('cinematic-bg').style.backgroundImage = `url('${player.avatar}')`;
+        // Actualizar avatar en HUD si existe elemento
+        const hudAvatar = document.getElementById('hud-avatar');
+        if(hudAvatar) {
+            hudAvatar.src = player.avatar;
+            hudAvatar.style.display = 'block';
+        }
     }
     
-    // document.getElementById('hud-origin').innerText = org.label; // Si tienes este elemento en el HTML
-
     window.closeModal('modal-creation');
     startGame();
 };
@@ -191,12 +195,11 @@ function recalc() {
     if(player.blessing) {
         for(let k in player.blessing.stats) s[k] += player.blessing.stats[k];
     }
-    // Sumar stats de equipo si los hubiera
     if(player.equipment.weapon) addObjStats(s, player.equipment.weapon.stats);
     if(player.equipment.armor) addObjStats(s, player.equipment.armor.stats);
     if(player.equipment.acc) addObjStats(s, player.equipment.acc.stats);
 
-    player.totalStats = s; // Guardar stats totales
+    player.totalStats = s; 
     player.derived.maxHp = Math.floor(s.VIT * 20 + s.STR * 5 + (player.lvl * 10));
     player.derived.maxMp = Math.floor(s.INT * 15 + s.SEN * 5 + (player.lvl * 5));
 }
@@ -210,11 +213,7 @@ function addObjStats(target, source) {
 
 function updateHUD() {
     document.getElementById('hud-lvl').innerText = player.lvl;
-
-    let r = RANKS[player.rankIdx] || 'F';
-    if(document.getElementById('hud-rank')) document.getElementById('hud-rank').innerText = r;
-    if(document.getElementById('bg-rank')) document.getElementById('bg-rank').innerText = r;
-
+    if(document.getElementById('hud-rank')) document.getElementById('hud-rank').innerText = RANKS[player.rankIdx] || 'F';
     document.getElementById('hud-money').innerText = player.money.toLocaleString();
     
     let hpP = (player.derived.hp / player.derived.maxHp) * 100;
@@ -259,7 +258,7 @@ window.nav = (loc) => {
         html = `<button class="btn-gold" style="height:100px;" onclick="window.rest()">💤 DORMIR</button>`;
     } else if(loc === 'city') {
         MapSystem.render();
-        return; // MapSystem handles the rendering
+        return; 
     }
     
     document.getElementById('loc-title').innerText = title;
@@ -295,6 +294,10 @@ window.visit = (zone) => {
     }
 };
 
+window.enterDungeon = (rank) => {
+    Combat.startDungeon(rank);
+};
+
 // --- DIALOGO ---
 let currNPC = null;
 
@@ -302,7 +305,7 @@ window.startDialogue = (name) => {
     currNPC = name;
     if (!player.social[name]) player.social[name] = { aff: 0, known: false };
     player.social[name].known = true;
-    renderSidebar(); // Actualizar lista social
+    renderSidebar(); 
     
     document.getElementById('modal-date').classList.add('active');
     document.getElementById('npc-name').innerText = name;
@@ -323,7 +326,6 @@ window.renderTopic = (node) => {
 
     if(node.opts) {
         node.opts.forEach(opt => {
-            // Verificar requisitos si existen
             if(opt.req) {
                 if(opt.req.stat && player.stats[opt.req.stat] < opt.req.val) return;
             }
@@ -335,7 +337,6 @@ window.renderTopic = (node) => {
             optsDiv.appendChild(b);
         });
     } else {
-        // Opción de salir si no hay opciones
         let b = document.createElement('button');
         b.className = 'chat-btn';
         b.innerText = "> (Salir)";
@@ -349,12 +350,8 @@ window.resolveChat = (opt) => {
     let topicData = npcData.topics[opt.n];
     
     if(topicData) {
-        // Lógica simple de éxito/fracaso
-        let outcome = topicData; // Por defecto
-        
-        // Si tiene win/fail, podrías agregar lógica aleatoria o de stats aquí
+        let outcome = topicData;
         if(outcome.win) window.applySocial(outcome.win);
-        
         window.renderTopic(topicData);
     } else if (opt.n === 'exit') {
         window.closeModal('modal-date');
@@ -364,7 +361,6 @@ window.resolveChat = (opt) => {
 window.applySocial = (ef) => {
     if(ef.aff) player.social[currNPC].aff += ef.aff;
     if(ef.rep) player.factionRep[ef.rep] += ef.val;
-    // Actualizar UI del modal
     document.getElementById('npc-val').innerText = player.social[currNPC].aff;
     let pct = Math.min(100, Math.max(0, player.social[currNPC].aff + 50));
     document.getElementById('npc-bar').style.width = pct + "%";
@@ -372,11 +368,9 @@ window.applySocial = (ef) => {
 
 // --- UTILIDADES ---
 window.closeModal = (id) => document.getElementById(id).classList.remove('active');
-window.openLevelUp = () => document.getElementById('modal-level').classList.add('active'); // Faltaba esto
-window.openInventory = () => document.getElementById('modal-inv').classList.add('active'); // Faltaba esto
-// Definir funciones vacías para evitar error si no existen aún
+window.openLevelUp = () => document.getElementById('modal-level').classList.add('active'); 
+window.openInventory = () => document.getElementById('modal-inv').classList.add('active');
 window.openSkills = () => log("Grimorio de habilidades vacío.", "m-sys"); 
 
 // --- INICIO ---
-// Inicializar UI de creación
 window.renderCreationStats();
