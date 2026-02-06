@@ -1,0 +1,14 @@
+{
+    "id": "boss_slime_king",
+    "name": "Rey Slime",
+    "rank": "F",
+    "isBoss": true,
+    "stats": {
+        "hp": 300,
+        "atk": 15,
+        "def": 5,
+        "spd": 5
+    },
+    "exp": 100,
+    "drops": ["Corona de Gelatina", "Núcleo Real F"]
+}

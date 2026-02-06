@@ -1,0 +1,14 @@
+{
+    "id": "boss_void_dragon",
+    "name": "Azi Dahaka, Dragón del Fin",
+    "rank": "S",
+    "isBoss": true,
+    "stats": {
+        "hp": 50000,
+        "atk": 1200,
+        "def": 800,
+        "spd": 150
+    },
+    "exp": 50000,
+    "drops": ["Corazón de Estrella", "Arma Legendaria: Fin de los Tiempos"]
+}

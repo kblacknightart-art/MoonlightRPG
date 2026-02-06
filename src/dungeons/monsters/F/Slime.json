@@ -1,0 +1,13 @@
+{
+    "id": "slime_f",
+    "name": "Slime Básico",
+    "rank": "F",
+    "stats": {
+        "hp": 50,
+        "atk": 5,
+        "def": 0,
+        "spd": 2
+    },
+    "exp": 10,
+    "drops": ["Gelatina", "Núcleo F"]
+}

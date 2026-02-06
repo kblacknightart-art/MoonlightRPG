@@ -1,0 +1,13 @@
+{
+    "id": "void_walker",
+    "name": "Caminante del Vacío",
+    "rank": "S",
+    "stats": {
+        "hp": 5000,
+        "atk": 450,
+        "def": 200,
+        "spd": 80
+    },
+    "exp": 5000,
+    "drops": ["Esencia de Vacío", "Núcleo S"]
+}
