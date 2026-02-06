@@ -1,4 +1,4 @@
-import { NPC_DB } from '../data/npcs.js';
+import { NPC_DB } from '../data/npc.js';
 import { TimeSystem } from './TimeSystem.js';
 import { log } from '../core/Utils.js';
 
